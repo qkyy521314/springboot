@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <meta charset="UTF-8">
+    <title>修改供应商</title>
+</head>
+<body>
+<div style="width:30%;height:80%;margin-left:35%;">
+    <h3 class="text-center">修改供应商</h3>
+    <form action="/provider/update/" method="post">
+        <table class="table table-striped table-bordered table-hover text-center">
+            <tr>
+                <td><label form="providerID">ID</label></td>
+                <td><input class="form-control" type="text" th:value="${provider.providerID}" name="providerID" readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="providerSign">供应商标识</label></td>
+                <td><input class="form-control" type="text" th:value="${provider.providerSign}" name="providerSign"></td>
+            </tr>
+            <tr>
+                <td><label form="providerName">供应商名称</label></td>
+                <td><input class="form-control" type="text" th:value="${provider.providerName}" name="providerName"></td>
+            </tr>
+            <tr>
+                <td><label form="impl">实现类</label></td>
+                <td><input class="form-control" type="text" th:value="${provider.impl}" name="impl"></td>
+            </tr>
+            <tr>
+                <td><label form="alarmValue">报警值</label></td>
+                <td>
+                    <input class="form-control" type="text" th:value="${provider.alarmValue}" name="alarmValue">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="username">用户名</label></td>
+                <td>
+                    <input class="form-control" type="text" th:value="${provider.username}" name="username">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="password">密码</label></td>
+                <td>
+                    <input class="form-control" type="text" th:value="${provider.password}" name="password">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="url">URL</label></td>
+                <td>
+                    <input class="form-control" type="text" th:value="${provider.url}" name="url">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="appkey">备注</label></td>
+                <td><input class="form-control" type="text" th:value="${provider.remark}" name="remark"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="btn btn-primary btn-lg">提 交</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

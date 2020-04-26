@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <meta charset="UTF-8">
+    <title>供应商列表</title>
+</head>
+<body>
+<h1 class="text-center">供应商列表管理</h1>
+<!--<a th:href="@{'/provider/insertPage'}" class="btn btn-large btn-primary btn-lg">添加供应商</a>-->
+<table class="table table-striped table-bordered table-hover text-center">
+    <thead>
+    <tr style="text-align:center">
+        <th class="text-center">供应商ID</th>
+        <th class="text-center">供应商标识</th>
+        <th class="text-center">供应商名称</th>
+        <th class="text-center">实现类</th>
+        <th class="text-center">创建时间</th>
+        <th class="text-center">更新时间</th>
+        <th class="text-center">报警值</th>
+        <th class="text-center">用户名</th>
+        <th class="text-center">密码</th>
+        <th class="text-center">URL</th>
+        <th class="text-center">备注</th>
+        <th class="text-center">操 作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="provider:${providerList}">
+        <td th:text="${provider.providerID}"></td>
+        <td th:text="${provider.providerSign}"></td>
+        <td th:text="${provider.providerName}"></td>
+        <td th:text="${provider.impl}"></td>
+        <td th:text="${#dates.format(provider.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#dates.format(provider.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${provider.alarmValue}"></td>
+        <td th:text="${provider.username}"></td>
+        <td th:text="${provider.password}"></td>
+        <td th:text="${provider.url}"></td>
+        <td th:text="${provider.remark}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="@{'/provider/update/'+${provider.providerID}}">更改</a>
+            <a class="btn btn-danger" th:href="@{'/provider/delete/'+${provider.providerID}}">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="modal-footer no-margin-top">
+    <ul class="pagination pull-left no-margin">
+        <!-- 首页 -->
+        <li>
+            <a th:href="@{'/provider/list?pageNum=0'}">首页</a>
+        </li>
+        <!-- 上一页 -->
+        <li th:if="${pageInfo.isHasPreviousPage()}">
+            <a th:href="@{'/provider/list?pageNum=' + ${pageInfo.getNavigateFirstPage()}}" th:text="上一页"></a>
+        </li>
+        <!-- 中间页 -->
+        <li th:each="pageNum:${#numbers.sequence(1, pageInfo.getPages())}">
+            <a th:href="@{'/provider/list?pageNum=' + ${pageNum}}" th:text="${pageNum}"
+               th:if="${pageNum ne pageInfo.getPageNum()}"></a>
+            <a th:href="@{'/provider/list?pageNum=' + ${pageNum}}" th:text="${pageNum}"
+               th:if="${pageNum eq pageInfo.getPageNum()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+        </li>
+        <!-- 下一页 -->
+        <li th:if="${pageInfo.isHasNextPage()}">
+            <a th:href="@{'/provider/list?pageNum=' + ${pageInfo.getNextPage()}}" th:text="下一页"></a>
+        </li>
+        <!-- 尾页 -->
+        <li>
+            <a th:href="@{'/provider/list?pageNum=' + ${pageInfo.getNavigateLastPage()}}">尾页</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

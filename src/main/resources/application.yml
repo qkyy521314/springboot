@@ -1,0 +1,46 @@
+spring:
+  profiles:
+    # 环境配置  dev 开发、test 测试、prod 生产
+    active: dev
+    # 引入其他配置文件
+    include: mysql
+#
+  application:
+    # 项目名
+    name: MessageGateway
+#
+  http:
+    # 编码
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+# thymeleaf start
+  thymeleaf:
+    # 开发时关闭缓存,不然没法看到实时页面
+    cache: false
+    encoding: UTF-8
+    mode: HTML5
+    servlet:
+      content-type: text/html
+    prefix: classpath:/templates/
+    suffix: .html
+
+  #
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+
+# 热部署
+  devtools:
+    restart:
+      enabled: true
+
+# 端口
+server:
+  port: 8080
+
+  #静态资源配置
+resources:
+  static-locations: classpath:static/

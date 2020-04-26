@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+
+    <contextName>logback</contextName>
+
+    <property name="log_path" value="log"/><!-- 如果在Windows环境下使用/开头的路径，将会被指定到项目所在的盘符 -->
+    <property name="log_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level --- [%thread] %logger{50} - %msg%n"/>
+    <property name="log_fileNamePattern" value="%d{yyyy-MM-dd}.%i.log"/>
+    <property name="log_maxFileSize" value="100MB"/>
+    <property name="log_maxHistory" value="30"/>
+
+    <!-- 输出到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder charset="UTF-8">
+            <pattern>${log_pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 输出到paopao-push.log文件 -->
+    <appender name="APP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_path}/paopao-push.log</file>
+        <encoder charset="UTF-8">
+            <pattern>${log_pattern}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_path}/paopao-push-${log_fileNamePattern}</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log_maxFileSize}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${log_maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 输出到sql.log文件 -->
+    <appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_path}/sql.log</file>
+        <encoder charset="UTF-8">
+            <pattern>${log_pattern}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_path}/sql-${log_fileNamePattern}</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log_maxFileSize}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${log_maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- mapper的sql配置 -->
+    <logger name="com.unix.zb.paopaopush.persistence.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="SQL" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <!-- 自定义包或者类输出的级别和策略 -->
+    <logger name="com.unix.zb.paopaopush" level="INFO" additivity="false">
+        <appender-ref ref="SQL" />
+        <appender-ref ref="APP" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <!-- root用来指定最基础的日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="APP"/>
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="SQL" />
+    </root>
+</configuration>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.message.gateway.persistence.dao.MessageInfoMapper">
+  <resultMap id="BaseResultMap" type="com.example.message.gateway.entity.po.MessageInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="msgID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="receiver" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="providerSign" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="appKey" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="sendStatus" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="providerStatus" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="sendCount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="successRate" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="returnContent" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="callbackContent" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, msgID, receiver, providerSign, appKey, `type`, sendStatus, providerStatus, sendCount, 
+    successRate, content, returnContent, callbackContent, createTime, updateTime, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.example.message.gateway.entity.po.MessageInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from messageinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from messageinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from messageinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.message.gateway.entity.po.MessageInfoExample">
+    delete from messageinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.message.gateway.entity.po.MessageInfo">
+    insert into messageinfo (id, msgID, receiver, 
+      providerSign, appKey, `type`, 
+      sendStatus, providerStatus, sendCount, 
+      successRate, content, returnContent, 
+      callbackContent, createTime, updateTime, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{msgID,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, 
+      #{providerSign,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{type,jdbcType=SMALLINT}, 
+      #{sendStatus,jdbcType=SMALLINT}, #{providerStatus,jdbcType=SMALLINT}, #{sendCount,jdbcType=INTEGER}, 
+      #{successRate,jdbcType=DOUBLE}, #{content,jdbcType=VARCHAR}, #{returnContent,jdbcType=VARCHAR}, 
+      #{callbackContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.message.gateway.entity.po.MessageInfo">
+    insert into messageinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="msgID != null">
+        msgID,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="providerSign != null">
+        providerSign,
+      </if>
+      <if test="appKey != null">
+        appKey,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="sendStatus != null">
+        sendStatus,
+      </if>
+      <if test="providerStatus != null">
+        providerStatus,
+      </if>
+      <if test="sendCount != null">
+        sendCount,
+      </if>
+      <if test="successRate != null">
+        successRate,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="returnContent != null">
+        returnContent,
+      </if>
+      <if test="callbackContent != null">
+        callbackContent,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="msgID != null">
+        #{msgID,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="providerSign != null">
+        #{providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="providerStatus != null">
+        #{providerStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="sendCount != null">
+        #{sendCount,jdbcType=INTEGER},
+      </if>
+      <if test="successRate != null">
+        #{successRate,jdbcType=DOUBLE},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="returnContent != null">
+        #{returnContent,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackContent != null">
+        #{callbackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.message.gateway.entity.po.MessageInfoExample" resultType="java.lang.Long">
+    select count(*) from messageinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update messageinfo
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.msgID != null">
+        msgID = #{record.msgID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiver != null">
+        receiver = #{record.receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerSign != null">
+        providerSign = #{record.providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appKey != null">
+        appKey = #{record.appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sendStatus != null">
+        sendStatus = #{record.sendStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.providerStatus != null">
+        providerStatus = #{record.providerStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sendCount != null">
+        sendCount = #{record.sendCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.successRate != null">
+        successRate = #{record.successRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnContent != null">
+        returnContent = #{record.returnContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackContent != null">
+        callbackContent = #{record.callbackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update messageinfo
+    set id = #{record.id,jdbcType=BIGINT},
+      msgID = #{record.msgID,jdbcType=VARCHAR},
+      receiver = #{record.receiver,jdbcType=VARCHAR},
+      providerSign = #{record.providerSign,jdbcType=VARCHAR},
+      appKey = #{record.appKey,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=SMALLINT},
+      sendStatus = #{record.sendStatus,jdbcType=SMALLINT},
+      providerStatus = #{record.providerStatus,jdbcType=SMALLINT},
+      sendCount = #{record.sendCount,jdbcType=INTEGER},
+      successRate = #{record.successRate,jdbcType=DOUBLE},
+      content = #{record.content,jdbcType=VARCHAR},
+      returnContent = #{record.returnContent,jdbcType=VARCHAR},
+      callbackContent = #{record.callbackContent,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.message.gateway.entity.po.MessageInfo">
+    update messageinfo
+    <set>
+      <if test="msgID != null">
+        msgID = #{msgID,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="providerSign != null">
+        providerSign = #{providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        appKey = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="sendStatus != null">
+        sendStatus = #{sendStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="providerStatus != null">
+        providerStatus = #{providerStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="sendCount != null">
+        sendCount = #{sendCount,jdbcType=INTEGER},
+      </if>
+      <if test="successRate != null">
+        successRate = #{successRate,jdbcType=DOUBLE},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="returnContent != null">
+        returnContent = #{returnContent,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackContent != null">
+        callbackContent = #{callbackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.message.gateway.entity.po.MessageInfo">
+    update messageinfo
+    set msgID = #{msgID,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      providerSign = #{providerSign,jdbcType=VARCHAR},
+      appKey = #{appKey,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=SMALLINT},
+      sendStatus = #{sendStatus,jdbcType=SMALLINT},
+      providerStatus = #{providerStatus,jdbcType=SMALLINT},
+      sendCount = #{sendCount,jdbcType=INTEGER},
+      successRate = #{successRate,jdbcType=DOUBLE},
+      content = #{content,jdbcType=VARCHAR},
+      returnContent = #{returnContent,jdbcType=VARCHAR},
+      callbackContent = #{callbackContent,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

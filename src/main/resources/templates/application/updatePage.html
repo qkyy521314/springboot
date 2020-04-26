@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <meta charset="UTF-8">
+    <title>修改应用</title>
+</head>
+<body>
+<div style="width:30%;height:80%;margin-left:35%;">
+    <h3 class="text-center">修改应用</h3>
+    <form action="/app/update/" method="post">
+        <table class="table table-striped table-bordered table-hover text-center">
+            <tr>
+                <td><label form="appkey">应用ID</label></td>
+                <td><input class="form-control" type="text" th:value="${app.appID}" name="appID" readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="appkey">应用Key</label></td>
+                <td><input class="form-control" type="text" th:value="${app.appKey}" name="appKey"></td>
+            </tr>
+            <tr>
+                <td><label form="appName">应用名称</label></td>
+                <td><input class="form-control" type="text" th:value="${app.appName}" name="appName"></td>
+            </tr>
+            <tr>
+                <td><label form="sendType">是否使用模板</label></td>
+                <td>
+                    <select class="form-control" name="sendType" th:value="${app.sendType}">
+                        <option value="1" th:selected="${app.sendType} == '1'">是</option>
+                        <option value="0" th:selected="${app.sendType} == '0'">否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label form="templateSign">模板标识</label></td>
+                <td>
+                    <input class="form-control" type="text" th:value="${app.templateSign}" name="templateSign">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="providerSign">供应商标识</label></td>
+                <td>
+                    <input class="form-control" type="text" th:value="${app.providerSign}" name="providerSign">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="sendTimeStatus">发送时间开关</label></td>
+                <td>
+                    <select class="form-control" name="sendTimeStatus" th:value="${app.sendTimeStatus}">
+                        <option value="1" th:selected="${app.sendTimeStatus} == '1'">是</option>
+                        <option value="0" th:selected="${app.sendTimeStatus} == '0'">否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label form="sendStime">发送开始时间</label></td>
+                <td><input class="form-control" type="time" name="sendStime" th:value="${app.sendStime}"></td>
+            </tr>
+            <tr>
+                <td><label form="sendEtime">发送结束时间</label></td>
+                <td><input class="form-control" type="time" name="sendEtime" th:value="${app.sendEtime}"></td>
+            </tr>
+            <tr>
+                <td><label form="blacklistStatus">黑名单开关</label></td>
+                <td>
+                    <select class="form-control" name="blacklistStatus" th:value="${app.blacklistStatus}">
+                        <option value="1" th:selected="${app.blacklistStatus} == '1'">是</option>
+                        <option value="0" th:selected="${app.blacklistStatus} == '0'">否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label form="remark">备注</label></td>
+                <td><input class="form-control" type="text" th:value="${app.remark}" name="remark"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="btn btn-primary btn-lg">提 交</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

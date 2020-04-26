@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <meta charset="UTF-8">
+    <title>修改模板</title>
+</head>
+<body>
+<div style="width:30%;height:80%;margin-left:35%;">
+    <h3 class="text-center">修改模板</h3>
+    <form action="/template/update/" method="post">
+        <table class="table table-striped table-bordered table-hover text-center">
+            <tr>
+                <td><label form="templateID">ID</label></td>
+                <td><input class="form-control" type="text" th:value="${template.templateID}" name="templateID" readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td><label form="templateSign">模板标识</label></td>
+                <td><input class="form-control" type="text" th:value="${template.templateSign}" name="templateSign"></td>
+            </tr>
+            <tr>
+                <td><label form="templateName">模板名称</label></td>
+                <td><input class="form-control" type="text" th:value="${template.templateName}" name="templateName"></td>
+            </tr>
+            <tr>
+                <td><label form="templateContent">模板内容</label></td>
+                <td><input class="form-control" type="text" th:value="${template.templateContent}" name="templateContent"></td>
+            </tr>
+            <tr>
+                <td><label form="appkey">备注</label></td>
+                <td><input class="form-control" type="text" th:value="${template.remark}" name="remark"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="btn btn-primary btn-lg">提 交</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

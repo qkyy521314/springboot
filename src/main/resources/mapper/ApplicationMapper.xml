@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.message.gateway.persistence.dao.ApplicationMapper">
+  <resultMap id="BaseResultMap" type="com.example.message.gateway.entity.po.Application">
+    <constructor>
+      <idArg column="appID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="appKey" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="appName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="appStatus" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="sendType" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="templateSign" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="providerSign" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sendTimeStatus" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="sendStime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sendEtime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="blacklistStatus" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    appID, appKey, appName, appStatus, sendType, templateSign, providerSign, sendTimeStatus, 
+    sendStime, sendEtime, createTime, updateTime, blacklistStatus, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.example.message.gateway.entity.po.ApplicationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from application
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from application
+    where appID = #{appID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from application
+    where appID = #{appID,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.message.gateway.entity.po.ApplicationExample">
+    delete from application
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.message.gateway.entity.po.Application">
+    insert into application (appID, appKey, appName, 
+      appStatus, sendType, templateSign, 
+      providerSign, sendTimeStatus, sendStime, 
+      sendEtime, createTime, updateTime, 
+      blacklistStatus, remark)
+    values (#{appID,jdbcType=INTEGER}, #{appKey,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{appStatus,jdbcType=SMALLINT}, #{sendType,jdbcType=SMALLINT}, #{templateSign,jdbcType=VARCHAR}, 
+      #{providerSign,jdbcType=VARCHAR}, #{sendTimeStatus,jdbcType=SMALLINT}, #{sendStime,jdbcType=VARCHAR}, 
+      #{sendEtime,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{blacklistStatus,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.message.gateway.entity.po.Application">
+    insert into application
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appID != null">
+        appID,
+      </if>
+      <if test="appKey != null">
+        appKey,
+      </if>
+      <if test="appName != null">
+        appName,
+      </if>
+      <if test="appStatus != null">
+        appStatus,
+      </if>
+      <if test="sendType != null">
+        sendType,
+      </if>
+      <if test="templateSign != null">
+        templateSign,
+      </if>
+      <if test="providerSign != null">
+        providerSign,
+      </if>
+      <if test="sendTimeStatus != null">
+        sendTimeStatus,
+      </if>
+      <if test="sendStime != null">
+        sendStime,
+      </if>
+      <if test="sendEtime != null">
+        sendEtime,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="blacklistStatus != null">
+        blacklistStatus,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appID != null">
+        #{appID,jdbcType=INTEGER},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appStatus != null">
+        #{appStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="sendType != null">
+        #{sendType,jdbcType=SMALLINT},
+      </if>
+      <if test="templateSign != null">
+        #{templateSign,jdbcType=VARCHAR},
+      </if>
+      <if test="providerSign != null">
+        #{providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTimeStatus != null">
+        #{sendTimeStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="sendStime != null">
+        #{sendStime,jdbcType=VARCHAR},
+      </if>
+      <if test="sendEtime != null">
+        #{sendEtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blacklistStatus != null">
+        #{blacklistStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.message.gateway.entity.po.ApplicationExample" resultType="java.lang.Long">
+    select count(*) from application
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update application
+    <set>
+      <if test="record.appID != null">
+        appID = #{record.appID,jdbcType=INTEGER},
+      </if>
+      <if test="record.appKey != null">
+        appKey = #{record.appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appName != null">
+        appName = #{record.appName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appStatus != null">
+        appStatus = #{record.appStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sendType != null">
+        sendType = #{record.sendType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.templateSign != null">
+        templateSign = #{record.templateSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerSign != null">
+        providerSign = #{record.providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendTimeStatus != null">
+        sendTimeStatus = #{record.sendTimeStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sendStime != null">
+        sendStime = #{record.sendStime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendEtime != null">
+        sendEtime = #{record.sendEtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.blacklistStatus != null">
+        blacklistStatus = #{record.blacklistStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update application
+    set appID = #{record.appID,jdbcType=INTEGER},
+      appKey = #{record.appKey,jdbcType=VARCHAR},
+      appName = #{record.appName,jdbcType=VARCHAR},
+      appStatus = #{record.appStatus,jdbcType=SMALLINT},
+      sendType = #{record.sendType,jdbcType=SMALLINT},
+      templateSign = #{record.templateSign,jdbcType=VARCHAR},
+      providerSign = #{record.providerSign,jdbcType=VARCHAR},
+      sendTimeStatus = #{record.sendTimeStatus,jdbcType=SMALLINT},
+      sendStime = #{record.sendStime,jdbcType=VARCHAR},
+      sendEtime = #{record.sendEtime,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      blacklistStatus = #{record.blacklistStatus,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.message.gateway.entity.po.Application">
+    update application
+    <set>
+      <if test="appKey != null">
+        appKey = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        appName = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appStatus != null">
+        appStatus = #{appStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="sendType != null">
+        sendType = #{sendType,jdbcType=SMALLINT},
+      </if>
+      <if test="templateSign != null">
+        templateSign = #{templateSign,jdbcType=VARCHAR},
+      </if>
+      <if test="providerSign != null">
+        providerSign = #{providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTimeStatus != null">
+        sendTimeStatus = #{sendTimeStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="sendStime != null">
+        sendStime = #{sendStime,jdbcType=VARCHAR},
+      </if>
+      <if test="sendEtime != null">
+        sendEtime = #{sendEtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blacklistStatus != null">
+        blacklistStatus = #{blacklistStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where appID = #{appID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.message.gateway.entity.po.Application">
+    update application
+    set appKey = #{appKey,jdbcType=VARCHAR},
+      appName = #{appName,jdbcType=VARCHAR},
+      appStatus = #{appStatus,jdbcType=SMALLINT},
+      sendType = #{sendType,jdbcType=SMALLINT},
+      templateSign = #{templateSign,jdbcType=VARCHAR},
+      providerSign = #{providerSign,jdbcType=VARCHAR},
+      sendTimeStatus = #{sendTimeStatus,jdbcType=SMALLINT},
+      sendStime = #{sendStime,jdbcType=VARCHAR},
+      sendEtime = #{sendEtime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      blacklistStatus = #{blacklistStatus,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where appID = #{appID,jdbcType=INTEGER}
+  </update>
+</mapper>

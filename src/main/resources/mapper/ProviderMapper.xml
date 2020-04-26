@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.message.gateway.persistence.dao.ProviderMapper">
+  <resultMap id="BaseResultMap" type="com.example.message.gateway.entity.po.Provider">
+    <constructor>
+      <idArg column="providerID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="providerSign" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="providerName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="impl" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="alarmValue" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    providerID, providerSign, providerName, impl, createTime, updateTime, alarmValue, 
+    username, `password`, url, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.example.message.gateway.entity.po.ProviderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from provider
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from provider
+    where providerID = #{providerID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from provider
+    where providerID = #{providerID,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.message.gateway.entity.po.ProviderExample">
+    delete from provider
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.message.gateway.entity.po.Provider">
+    insert into provider (providerID, providerSign, providerName, 
+      impl, createTime, updateTime, 
+      alarmValue, username, `password`, 
+      url, remark)
+    values (#{providerID,jdbcType=INTEGER}, #{providerSign,jdbcType=VARCHAR}, #{providerName,jdbcType=VARCHAR}, 
+      #{impl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{alarmValue,jdbcType=DOUBLE}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.message.gateway.entity.po.Provider">
+    insert into provider
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="providerID != null">
+        providerID,
+      </if>
+      <if test="providerSign != null">
+        providerSign,
+      </if>
+      <if test="providerName != null">
+        providerName,
+      </if>
+      <if test="impl != null">
+        impl,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="alarmValue != null">
+        alarmValue,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="providerID != null">
+        #{providerID,jdbcType=INTEGER},
+      </if>
+      <if test="providerSign != null">
+        #{providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null">
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="impl != null">
+        #{impl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmValue != null">
+        #{alarmValue,jdbcType=DOUBLE},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.message.gateway.entity.po.ProviderExample" resultType="java.lang.Long">
+    select count(*) from provider
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update provider
+    <set>
+      <if test="record.providerID != null">
+        providerID = #{record.providerID,jdbcType=INTEGER},
+      </if>
+      <if test="record.providerSign != null">
+        providerSign = #{record.providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerName != null">
+        providerName = #{record.providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.impl != null">
+        impl = #{record.impl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmValue != null">
+        alarmValue = #{record.alarmValue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update provider
+    set providerID = #{record.providerID,jdbcType=INTEGER},
+      providerSign = #{record.providerSign,jdbcType=VARCHAR},
+      providerName = #{record.providerName,jdbcType=VARCHAR},
+      impl = #{record.impl,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      alarmValue = #{record.alarmValue,jdbcType=DOUBLE},
+      username = #{record.username,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.message.gateway.entity.po.Provider">
+    update provider
+    <set>
+      <if test="providerSign != null">
+        providerSign = #{providerSign,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null">
+        providerName = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="impl != null">
+        impl = #{impl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmValue != null">
+        alarmValue = #{alarmValue,jdbcType=DOUBLE},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where providerID = #{providerID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.message.gateway.entity.po.Provider">
+    update provider
+    set providerSign = #{providerSign,jdbcType=VARCHAR},
+      providerName = #{providerName,jdbcType=VARCHAR},
+      impl = #{impl,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      alarmValue = #{alarmValue,jdbcType=DOUBLE},
+      username = #{username,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where providerID = #{providerID,jdbcType=INTEGER}
+  </update>
+</mapper>
