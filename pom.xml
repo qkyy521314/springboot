@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>message-gateway</artifactId>
+    <artifactId>springboot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>message-gateway</name>
-    <description>Message-Gateway</description>
+    <name>springboot</name>
+    <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -24,10 +24,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -37,31 +37,15 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- mysql start -->
@@ -139,19 +123,32 @@
         </dependency>
         <!-- 日志 end -->
 
-        <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
-        <!-- bootstrap -->
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.5</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.1.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -164,15 +161,15 @@
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.5</version>
-<!--                    <dependencies>-->
-<!--                        <dependency>-->
-<!--                            <groupId>com.sjjy.limit</groupId>-->
-<!--                            <artifactId>limit-plugin</artifactId>-->
-<!--                            <version>1.0-SNAPSHOT</version>-->
-<!--                            &lt;!&ndash; <scope>system</scope>&ndash;&gt;-->
-<!--                            &lt;!&ndash; <systemPath>D:/svn_code/svn/platform/msg/limitplugin/target/limit-plugin-1.0-SNAPSHOT.jar</systemPath>&ndash;&gt;-->
-<!--                        </dependency>-->
-<!--                    </dependencies>-->
+                <!--                    <dependencies>-->
+                <!--                        <dependency>-->
+                <!--                            <groupId>com.sjjy.limit</groupId>-->
+                <!--                            <artifactId>limit-plugin</artifactId>-->
+                <!--                            <version>1.0-SNAPSHOT</version>-->
+                <!--                            &lt;!&ndash; <scope>system</scope>&ndash;&gt;-->
+                <!--                            &lt;!&ndash; <systemPath>D:/svn_code/svn/platform/msg/limitplugin/target/limit-plugin-1.0-SNAPSHOT.jar</systemPath>&ndash;&gt;-->
+                <!--                        </dependency>-->
+                <!--                    </dependencies>-->
                 <configuration>
                     <!--允许移动生成的文件-->
                     <verbose>false</verbose>

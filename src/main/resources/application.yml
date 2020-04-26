@@ -7,7 +7,7 @@ spring:
 #
   application:
     # 项目名
-    name: MessageGateway
+    name: mysql
 #
   http:
     # 编码

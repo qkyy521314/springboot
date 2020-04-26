@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>PUSH平台</title>
+    <title>后台管理</title>
     <!--Bootstrap-->
     <link th:href="@{Bootstrap/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
     <!-- Font Awesome -->
@@ -53,7 +53,7 @@
             <li class="light-blue" style="height:50px;">
 
                 <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                    <img class="nav-user-photo" th:src="@{Bootstrap/ace/avatars/avatar2.png}" alt="Admin's Photo" />
+                    <img class="nav-user-photo" th:src="@{Bootstrap/ace/avatars/profile-pic.jpg}" alt="Admin's Photo" />
                     <span class="user-info">
                         <small>欢迎光临</small>
                     </span>
@@ -117,66 +117,22 @@
         $('#menu').sidebarMenu({
             data: [{
                 id: '1',
-                text: '应用管理',
+                text: '用户管理',
                 icon: 'icon-cog',
                 url: '',
                 menus: [{
                             id: '11',
-                            text: '应用列表',
+                            text: '用户列表',
                             icon: 'icon-glass',
-                            url: '/app/list',
+                            url: '/user/list',
                         },
                         {
                             id: '12',
-                            text: '添加应用',
+                            text: '添加用户',
                             icon: 'icon-glass',
-                            url: '/app/insertPage',
+                            url: '/user/insertPage',
                         },
                     ]
-                },
-                {
-                id: '2',
-                text: '模板管理',
-                icon: 'icon-cog',
-                url: '/template/list',
-                menus: [{
-                    id: '21',
-                    text: '模板列表',
-                    icon: 'icon-glass',
-                    url: '/template/list',
-                },
-                    {
-                        id: '22',
-                        text: '添加模板',
-                        icon: 'icon-glass',
-                        url: '/template/insertPage',
-                    },
-                ]
-                },
-                {
-                id: '3',
-                text: '供应商管理',
-                icon: 'icon-cog',
-                url: '/provider/list',
-                menus: [{
-                    id: '31',
-                    text: '供应商列表',
-                    icon: 'icon-glass',
-                    url: '/provider/list',
-                },
-                    {
-                        id: '32',
-                        text: '添加供应商',
-                        icon: 'icon-glass',
-                        url: '/provider/insertPage',
-                    },
-                ]
-                },
-                {
-                id: '4',
-                text: 'Push记录管理',
-                icon: 'icon-cog',
-                url: '/messageInfo/list',
                 }
             ]
         });
